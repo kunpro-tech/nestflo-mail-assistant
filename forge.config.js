@@ -18,10 +18,10 @@ module.exports = {
       name: "@electron-forge/maker-dmg",
       config: {},
     },
-    {
-      name: "@electron-forge/maker-wix",
-      config: {},
-    },
+    // {
+    //   name: "@electron-forge/maker-wix",
+    //   config: {},
+    // },
   ],
   publishers: [
     {
