@@ -1,9 +1,12 @@
+const path = require("path");
+
 module.exports = {
   packagerConfig: {
-    osxSign: {
-      identity:
-        "Developer ID Application: Root Sports Investment (Beijing) Co., Ltd.",
-    },
+    // osxSign: {
+    //   identity:
+    //     "Developer ID Application: Root Sports Investment (Beijing) Co., Ltd.",
+    // },
+    icon: path.resolve(__dirname, "public", "icons", "kunpro-logo"),
   },
   rebuildConfig: {},
   makers: [
@@ -16,9 +19,9 @@ module.exports = {
       config: {},
     },
     {
-      name: '@electron-forge/maker-wix',
-      config: {}
-    }
+      name: "@electron-forge/maker-wix",
+      config: {},
+    },
   ],
   publishers: [
     {

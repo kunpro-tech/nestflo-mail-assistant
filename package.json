@@ -25,8 +25,8 @@
     "package": "vite build && electron-forge package",
     "make": "vite build && electron-forge make",
     "make-mac": "vite build && electron-forge make --platform=darwin --arch=arm64 && electron-forge make --platform=darwin --arch=x64",
-    "make-window": "vite build && electron-forge make",
     "make-mac-dev": "vite build --mode development && electron-forge make --platform=darwin --arch=arm64 && electron-forge make --platform=darwin --arch=x64",
+    "make-window": "vite build && electron-forge make",
     "make-window-dev": "vite build --mode development && electron-forge make"
   },
   "dependencies": {
