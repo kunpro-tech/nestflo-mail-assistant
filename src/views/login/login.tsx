@@ -4,6 +4,7 @@ import { ipcRenderer } from "electron";
 import { message, Button, Form, Input, Radio } from "antd";
 import styles from "./index.module.scss";
 import { useNavigate } from "react-router-dom";
+import "./index.scss";
 
 const GET_TOKENS = gql`
   query Query($token: String!) {
@@ -26,6 +27,8 @@ const options = [
 
 function login() {
   const navigate = useNavigate();
+
+  const [form] = Form.useForm();
 
   const [messageApi, contextHolder] = message.useMessage();
 
@@ -62,6 +65,10 @@ function login() {
     console.log("Failed:", errorInfo);
   };
 
+  const handleGoHelp = () => {
+    navigate("/help");
+  };
+
   useEffect(() => {
     if (localStorage.getItem("kunproKey") !== null) {
       navigate("/list");
@@ -72,14 +79,27 @@ function login() {
     <>
       {contextHolder}
       <div className={styles.content}>
+        <img
+          src="/src/assets/logo.png"
+          alt="logo"
+          className={styles.logo_img}
+        />
+        <img
+          src="/src/assets/text.png"
+          alt="text"
+          className={styles.text_img}
+        />
         <Form
           name="basic"
+          form={form}
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
-          style={{ minWidth: 400 }}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           autoComplete="off"
+          labelAlign="left"
+          requiredMark={false}
+          size="middle"
         >
           <Form.Item
             label="Email type"
@@ -118,13 +138,14 @@ function login() {
           >
             <Input />
           </Form.Item>
-
-          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button type="primary" htmlType="submit">
-              Login
-            </Button>
-          </Form.Item>
         </Form>
+        <div className={styles.text_div}>
+          <span className={styles.question_text}>遇到问题？</span>
+          <span className={styles.help_text} onClick={handleGoHelp}>
+            帮助手册
+          </span>
+        </div>
+        <div className={styles.button}>Login</div>
       </div>
     </>
   );

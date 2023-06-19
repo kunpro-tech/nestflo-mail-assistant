@@ -3,7 +3,48 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 100%;
+  width: 230px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  .logo_img {
+    width: 32.5px;
+    height: 37px;
+    margin-bottom: 4px;
+  }
+  .text_img {
+    width: 127px;
+    height: 13.5px;
+    margin-bottom: 27.5px;
+  }
+  .text_div {
+    width: 100%;
+    margin-bottom: 38.5px;
+    .question_text {
+      font-size: 9px;
+      font-family: PingFangSC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #c0c1c1;
+    }
+    .help_text {
+      font-size: 9px;
+      font-family: PingFangSC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #2cab56;
+      cursor: pointer;
+    }
+  }
+  .button {
+    width: 92px;
+    height: 25px;
+    background: #2cab56;
+    border-radius: 4px;
+
+    font-size: 9px;
+    font-family: PingFangSC-Semibold, PingFang SC;
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 25px;
+    text-align: center;
+  }
 }
