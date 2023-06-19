@@ -4,7 +4,7 @@ function List() {
   return (
     <>
       <iframe
-        src={url}
+        src={'https://github.com/kunpro-tech/kunpro-mail-assistant/blob/main/help.md'}
         style={{
           width: "100vw",
           height: "100vh",
