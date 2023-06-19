@@ -69,6 +69,10 @@ function login() {
     navigate("/help");
   };
 
+  const handleLogin = ()=>{
+    form.submit()
+  }
+
   useEffect(() => {
     if (localStorage.getItem("kunproKey") !== null) {
       navigate("/list");
@@ -145,7 +149,7 @@ function login() {
             帮助手册
           </span>
         </div>
-        <div className={styles.button}>Login</div>
+        <div className={styles.button} onClick={handleLogin}>Login</div>
       </div>
     </>
   );
