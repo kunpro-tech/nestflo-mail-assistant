@@ -5,21 +5,21 @@
   "appId": "YourAppID",
   "asar": true,
   "directories": {
-    "output": "release/${version}"
+    "output": "release"
   },
   "files": [
     "dist-electron",
     "dist"
   ],
   "mac": {
-    "artifactName": "${productName}_${version}.${ext}",
+    "artifactName": "${productName}_${arch}.${ext}",
     "target": [
-      "dmg",
-      "zip"
+      "dmg"
     ],
     "identity":null
   },
   "win": {
+    "artifactName": "${productName}.${ext}",
     "target": [
       {
         "target": "nsis",
@@ -28,7 +28,6 @@
         ]
       }
     ],
-    "artifactName": "${productName}_${version}.${ext}"
   },
   "nsis": {
     "oneClick": false,

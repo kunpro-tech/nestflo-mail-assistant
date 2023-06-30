@@ -21,13 +21,10 @@
     "preview": "vite preview",
     "pree2e": "vite build --mode=test",
     "e2e": "playwright test",
-    "start": "electron-forge start",
-    "package": "vite build && electron-forge package",
-    "make": "vite build && electron-forge make",
-    "make-mac": "vite build && electron-forge make --platform=darwin --arch=arm64 && electron-forge make --platform=darwin --arch=x64",
-    "make-mac-dev": "vite build --mode development && electron-forge make --platform=darwin --arch=arm64 && electron-forge make --platform=darwin --arch=x64",
-    "make-window": "vite build && electron-forge make",
-    "make-window-dev": "vite build --mode development && electron-forge make"
+    "make-mac": "vite build && electron-builder --mac --x64 && electron-builder --mac --arm64",
+    "make-mac-dev": "vite build --mode development && electron-builder --mac --x64 && electron-builder --mac --arm64",
+    "make-window": "vite build && electron-builder --win",
+    "make-window-dev": "vite build --mode development && electron-builder --win"
   },
   "dependencies": {
     "@apollo/client": "^3.7.15",
@@ -60,6 +57,7 @@
     "@types/react-dom": "^18.2.4",
     "@vitejs/plugin-react": "^3.1.0",
     "electron": "^23.3.5",
+    "electron-builder": "^24.4.0",
     "postcss-px-to-viewport": "^1.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
