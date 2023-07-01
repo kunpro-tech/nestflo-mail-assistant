@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import "./index.scss";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import logoImg from '../../assets/logo.png'
+import textImg from '../../assets/text.png'
 
 const GET_TOKENS = gql`
   query Query($token: String!) {
@@ -136,12 +138,12 @@ function login() {
       {contextHolder}
       <div className={styles.content}>
         <img
-          src="/src/assets/logo.png"
+          src={logoImg}
           alt="logo"
           className={styles.logo_img}
         />
         <img
-          src="/src/assets/text.png"
+          src={textImg}
           alt="text"
           className={styles.text_img}
         />
