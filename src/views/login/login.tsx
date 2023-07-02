@@ -179,7 +179,7 @@ function login() {
               { required: true, message: "" },
             ]}
           >
-            <Input placeholder="Please enter your email address" />
+            <Input placeholder="Please enter your email address" bordered={false} />
           </Form.Item>
 
           <Form.Item
@@ -187,7 +187,7 @@ function login() {
             name="password"
             rules={[{ required: true, message: "" }]}
           >
-            <Input.Password placeholder="Please enter a password" />
+            <Input.Password placeholder="Please enter a password" bordered={false} />
           </Form.Item>
 
           <Form.Item
@@ -197,7 +197,7 @@ function login() {
               { required: true, message: "" },
             ]}
           >
-            <Input placeholder="Please enter the key" />
+            <Input placeholder="Please enter the key" bordered={false} />
           </Form.Item>
         </Form>
         <div className={styles.text_div}>

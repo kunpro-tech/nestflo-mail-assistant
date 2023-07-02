@@ -21,13 +21,11 @@
     width: 100%;
     margin-bottom: 38.5px;
     .question_text {
-      font-size: 9px;
       font-family: PingFangSC-Regular, PingFang SC;
       font-weight: 400;
       color: #c0c1c1;
     }
     .help_text {
-      font-size: 9px;
       font-family: PingFangSC-Regular, PingFang SC;
       font-weight: 400;
       color: #2cab56;
@@ -35,16 +33,15 @@
     }
   }
   .button {
-    width: 92px;
-    height: 25px;
+    width: 112px;
+    height: 45px;
     background: #2cab56;
     border-radius: 4px;
 
-    font-size: 9px;
     font-family: PingFangSC-Semibold, PingFang SC;
     font-weight: 600;
     color: #ffffff;
-    line-height: 25px;
+    line-height: 45px;
     text-align: center;
     cursor: pointer;
   }
