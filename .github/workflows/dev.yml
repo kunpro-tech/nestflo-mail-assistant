@@ -57,7 +57,7 @@ jobs:
           password: ${{ secrets.ES_PASSWORD }}
           credential_id: ${{ secrets.CREDENTIAL_ID }}
           totp_secret: ${{ secrets.TOTP_SECRET }}
-          file_path: release/kunpro-mail-assistant.exe
+          file_path: release/*.exe
           output_path: release/
 
         # step6: upload artifacts
