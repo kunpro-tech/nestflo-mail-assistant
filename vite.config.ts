@@ -76,13 +76,13 @@ export default defineConfig(({ command }) => {
     })(),
     clearScreen: false,
     css:{
-      postcss:{
-        plugins:[
-          pxtoviewport({
-            viewportWidth: 960,
-          }),
-        ]
-      }
+      // postcss:{
+      //   plugins:[
+      //     pxtoviewport({
+      //       viewportWidth: 960,
+      //     }),
+      //   ]
+      // }
     }
   }
 })

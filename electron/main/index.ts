@@ -1,4 +1,4 @@
-import { app, BrowserWindow, shell, ipcMain, Tray } from "electron";
+import { app, BrowserWindow, shell, ipcMain, Tray, Menu } from "electron";
 import { release } from "node:os";
 import { join } from "node:path";
 import { update } from "./update";
@@ -65,9 +65,13 @@ async function createWindow() {
       nodeIntegration: true,
       contextIsolation: false,
     },
-    minHeight: 800,
-    minWidth: 1600,
+    minHeight: 700,
+    minWidth: 700,
   });
+
+  // 创建菜单栏
+  const menu = Menu.buildFromTemplate([]);
+  Menu.setApplicationMenu(menu);
 
   if (url) {
     // electron-vite-vue#298
