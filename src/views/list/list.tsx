@@ -36,7 +36,81 @@ function List() {
 
   const [currentState, setCurrentState] = useState("serviceIsRunning");
 
-  const url = import.meta.env.VITE_BASE_WEBVIEW_URL + `dashboard/messages/email/?token=${kunproKey}`
+  const url =
+    import.meta.env.VITE_BASE_WEBVIEW_URL +
+    `dashboard/messages/email/?token=${kunproKey}`;
+
+  type TMailItem = FetchMessageObject & {
+    analyticalResults: ParsedMail;
+  };
+
+  const addMailPromise = (item: TMailItem) => {
+    return new Promise<void>((resolve, reject) => {
+      addMail({
+        variables: {
+          input: {
+            email_id: item.emailId,
+            html_body: item.analyticalResults.html,
+            subject: item.envelope.subject,
+            text_body: item.analyticalResults.text,
+            date: item.envelope.date.getTime().toString(),
+            from_email: item.envelope.from[0].address,
+            token: kunproKey,
+          },
+        },
+        async onCompleted(data, clientOptions) {
+          try {
+            const {
+              createLeadsForApp: { to, replies },
+            } = data;
+
+            for (const item of replies) {
+              const { body, subject } = item;
+              await ipcRenderer.invoke(
+                "sendMail",
+                emailType,
+                email,
+                pass,
+                to,
+                subject,
+                body
+              );
+
+              messageApi.open({
+                type: "success",
+                content: "sentSuccessfully",
+              });
+            }
+
+            resolve();
+          } catch (error) {
+            messageApi.open({
+              type: "error",
+              content: JSON.stringify(error),
+            });
+
+            reject();
+          }
+        },
+        onError(error, clientOptions) {
+          messageApi.open({
+            type: "error",
+            content: JSON.stringify(error),
+          });
+
+          reject();
+        },
+      });
+    });
+  };
+
+  const delayPromise = (time: number) => {
+    return new Promise<void>((resolve) => {
+      setTimeout(() => {
+        resolve();
+      }, time);
+    });
+  };
 
   // 每十分钟检查一次邮件数量
   async function checkTheNewMail() {
@@ -56,9 +130,7 @@ function List() {
 
       // 对比出新邮件
       if (res > numberOfCacheMail) {
-        const newMailArray: (FetchMessageObject & {
-          analyticalResults: ParsedMail;
-        })[] = await ipcRenderer.invoke(
+        const newMailArray: TMailItem[] = await ipcRenderer.invoke(
           "getTheLatestEmail",
           emailType,
           email,
@@ -74,55 +146,8 @@ function List() {
               "members@zoopla.co.uk",
             ].includes(item.envelope.from[0].address || "")
           ) {
-            addMail({
-              variables: {
-                input: {
-                  email_id: item.emailId,
-                  html_body: item.analyticalResults.html,
-                  subject: item.envelope.subject,
-                  text_body: item.analyticalResults.text,
-                  date: item.envelope.date.getTime().toString(),
-                  from_email: item.envelope.from[0].address,
-                  token: kunproKey,
-                },
-              },
-              async onCompleted(data, clientOptions) {
-                try {
-                  const {
-                    createLeadsForApp: { to, replies },
-                  } = data;
-
-                  for (const item of replies) {
-                    const { body, subject } = item;
-                    await ipcRenderer.invoke(
-                      "sendMail",
-                      emailType,
-                      email,
-                      pass,
-                      to,
-                      subject,
-                      body
-                    );
-
-                    messageApi.open({
-                      type: "success",
-                      content: "sentSuccessfully",
-                    });
-                  }
-                } catch (error) {
-                  messageApi.open({
-                    type: "error",
-                    content: JSON.stringify(error),
-                  });
-                }
-              },
-              onError(error, clientOptions) {
-                messageApi.open({
-                  type: "error",
-                  content: JSON.stringify(error),
-                });
-              },
-            });
+            await addMailPromise(item);
+            await delayPromise(2000);
           }
         }
       }
@@ -141,9 +166,7 @@ function List() {
         localStorage.getItem("numberOfCacheMail")
       );
 
-      const newMailArray: (FetchMessageObject & {
-        analyticalResults: ParsedMail;
-      })[] = await ipcRenderer.invoke(
+      const newMailArray: TMailItem[] = await ipcRenderer.invoke(
         "getTheLatestEmail",
         emailType,
         email,
@@ -158,55 +181,8 @@ function List() {
             item.envelope.from[0].address || ""
           )
         ) {
-          addMail({
-            variables: {
-              input: {
-                email_id: item.emailId,
-                html_body: item.analyticalResults.html,
-                subject: item.envelope.subject,
-                text_body: item.analyticalResults.text,
-                date: item.envelope.date.getTime().toString(),
-                from_email: item.envelope.from[0].address,
-                token: kunproKey,
-              },
-            },
-            async onCompleted(data, clientOptions) {
-              try {
-                const {
-                  createLeadsForApp: { to, replies },
-                } = data;
-
-                for (const item of replies) {
-                  const { body, subject } = item;
-                  await ipcRenderer.invoke(
-                    "sendMail",
-                    emailType,
-                    email,
-                    pass,
-                    to,
-                    subject,
-                    body
-                  );
-
-                  messageApi.open({
-                    type: "success",
-                    content: "sentSuccessfully",
-                  });
-                }
-              } catch (error) {
-                messageApi.open({
-                  type: "error",
-                  content: JSON.stringify(error),
-                });
-              }
-            },
-            onError(error, clientOptions) {
-              messageApi.open({
-                type: "error",
-                content: JSON.stringify(error),
-              });
-            },
-          });
+          await addMailPromise(item);
+          await delayPromise(2000);
         }
       }
       localStorage.setItem("InitiallyChecked", "yes");
@@ -261,12 +237,13 @@ function List() {
   return (
     <>
       {contextHolder}
-      <iframe src={url} style={ 
-        {
-          width:'100vw',
-          height:'100vh'
-        }
-      }></iframe>
+      <iframe
+        src={url}
+        style={{
+          width: "100vw",
+          height: "100vh",
+        }}
+      ></iframe>
     </>
   );
 }

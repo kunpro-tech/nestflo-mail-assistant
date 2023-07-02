@@ -80,7 +80,7 @@ async function createWindow() {
     return { action: "deny" };
   });
 
-  tray = new Tray(join(process.env.PUBLIC, "icons", "kunpro-logo.png"));
+  tray = new Tray(join(process.env.PUBLIC, "icons", "icon.png"));
 
   tray.on("click", () => {
     if (win) {
