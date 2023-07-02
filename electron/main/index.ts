@@ -4,7 +4,12 @@ import { join } from "node:path";
 import { update } from "./update";
 import "./imap";
 import "./sendMail";
+import log from 'electron-log';
 require('update-electron-app')()
+
+log.initialize({ preload: true });
+
+log.info('Log from the main process');
 
 // The built directory structure
 //
