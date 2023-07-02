@@ -48,17 +48,17 @@ jobs:
         run: |
           yarn make-mac-dev
 
-      - name: Sign Artifact with CodeSignTool
-        if: matrix.os == 'windows-latest'
-        uses: sslcom/esigner-codesign@develop
-        with:
-          command: sign
-          username: ${{ secrets.ES_USERNAME }}
-          password: ${{ secrets.ES_PASSWORD }}
-          credential_id: ${{ secrets.CREDENTIAL_ID }}
-          totp_secret: ${{ secrets.TOTP_SECRET }}
-          file_path: release/kunpro-mail-assistant.exe
-          output_path: release/
+      # - name: Sign Artifact with CodeSignTool
+      #   if: matrix.os == 'windows-latest'
+      #   uses: sslcom/esigner-codesign@develop
+      #   with:
+      #     command: sign
+      #     username: ${{ secrets.ES_USERNAME }}
+      #     password: ${{ secrets.ES_PASSWORD }}
+      #     credential_id: ${{ secrets.CREDENTIAL_ID }}
+      #     totp_secret: ${{ secrets.TOTP_SECRET }}
+      #     file_path: release/kunpro-mail-assistant.exe
+      #     output_path: release/
 
         # step6: upload artifacts
       - name: upload artifacts
