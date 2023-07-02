@@ -167,6 +167,7 @@ function login() {
             rules={[
               { required: true, message: "" },
             ]}
+            initialValue={'1'}
           >
             <Radio.Group options={options} optionType="button" />
           </Form.Item>
