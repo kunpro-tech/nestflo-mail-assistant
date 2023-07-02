@@ -165,7 +165,7 @@ function login() {
             label="Email type"
             name="emailType"
             rules={[
-              { required: true, message: "Please select your Email type!" },
+              { required: true, message: "" },
             ]}
           >
             <Radio.Group options={options} optionType="button" />
@@ -175,7 +175,7 @@ function login() {
             label="Email address"
             name="email"
             rules={[
-              { required: true, message: "Please input your Email address!" },
+              { required: true, message: "" },
             ]}
           >
             <Input placeholder="Please enter your email address" />
@@ -184,7 +184,7 @@ function login() {
           <Form.Item
             label="Password"
             name="password"
-            rules={[{ required: true, message: "Please input your password!" }]}
+            rules={[{ required: true, message: "" }]}
           >
             <Input.Password placeholder="Please enter a password" />
           </Form.Item>
@@ -193,7 +193,7 @@ function login() {
             label="Kunpro key"
             name="kunproKey"
             rules={[
-              { required: true, message: "Please input your Kunpro key!" },
+              { required: true, message: "" },
             ]}
           >
             <Input placeholder="Please enter the key" />
