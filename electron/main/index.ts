@@ -4,12 +4,14 @@ import { join } from "node:path";
 import { update } from "./update";
 import "./imap";
 import "./sendMail";
-import log from 'electron-log';
-require('update-electron-app')()
+import log from "electron-log";
+require("update-electron-app")({
+  logger: require("electron-log"),
+});
 
 log.initialize({ preload: true });
 
-log.info('Log from the main process');
+log.info("Log from the main process");
 
 // The built directory structure
 //
