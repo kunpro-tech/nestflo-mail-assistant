@@ -66,7 +66,9 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.os }}
-          path: release/*.dmg
+          path: |
+            release/*.dmg
+            release/*.zip
 
         # step6: upload artifacts
       - name: upload artifacts
