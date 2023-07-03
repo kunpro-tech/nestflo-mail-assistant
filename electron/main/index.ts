@@ -51,7 +51,7 @@ const preload = join(__dirname, "../preload/index.js");
 const url = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(process.env.DIST, "index.html");
 
-let tray = null;
+let tray: Tray | null = null;
 
 async function createWindow() {
   win = new BrowserWindow({
@@ -95,9 +95,33 @@ async function createWindow() {
 
   tray = new Tray(join(process.env.PUBLIC, "icons", "icon.png"));
 
-  tray.on("click", () => {
+  tray.on("double-click", () => {
     if (win) {
       win.show();
+    }
+  });
+
+  const contextMenu = Menu.buildFromTemplate([
+    {
+      label: "Home",
+      click: () => {
+        if (win) {
+          win.show();
+          win.focus();
+        }
+      },
+    },
+    {
+      label: "Exit",
+      click: () => {
+        app.quit();
+      },
+    },
+  ]);
+
+  tray.on("right-click", () => {
+    if (tray) {
+      tray.popUpContextMenu(contextMenu);
     }
   });
 
@@ -107,9 +131,10 @@ async function createWindow() {
 
 app.whenReady().then(createWindow);
 
-app.on("window-all-closed", () => {
-  win = null;
-  if (process.platform !== "darwin") app.quit();
+app.on("window-all-closed", (event: any) => {
+  win?.hide();
+  win?.setSkipTaskbar(true);
+  event.preventDefault();
 });
 
 app.on("second-instance", () => {
