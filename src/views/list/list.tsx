@@ -3,6 +3,7 @@ import { ipcRenderer } from "electron";
 import { message } from "antd";
 import { gql, useMutation } from "@apollo/client";
 import { FetchMessageObject } from "imapflow";
+import log from "electron-log";
 
 import { ParsedMail } from "mailparser";
 
@@ -89,7 +90,9 @@ function List() {
               content: JSON.stringify(error),
             });
 
-            reject();
+            log.error(JSON.stringify(error));
+
+            resolve();
           }
         },
         onError(error, clientOptions) {
@@ -98,7 +101,9 @@ function List() {
             content: JSON.stringify(error),
           });
 
-          reject();
+          log.error(JSON.stringify(error));
+
+          resolve();
         },
       });
     });
