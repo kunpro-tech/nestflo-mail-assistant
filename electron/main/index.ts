@@ -98,6 +98,7 @@ async function createWindow() {
   tray.on("double-click", () => {
     if (win) {
       win.show();
+      win?.setSkipTaskbar(false);
     }
   });
 
@@ -107,14 +108,14 @@ async function createWindow() {
       click: () => {
         if (win) {
           win.show();
-          win.focus();
+          win?.setSkipTaskbar(false);
         }
       },
     },
     {
       label: "Exit",
       click: () => {
-        app.quit();
+        app.exit()
       },
     },
   ]);
@@ -140,6 +141,7 @@ async function createWindow() {
 app.whenReady().then(createWindow);
 
 app.on("window-all-closed", () => {
+  win = null
   if (process.platform !== "darwin") app.quit();
 });
 
