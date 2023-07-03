@@ -132,9 +132,9 @@ async function createWindow() {
 app.whenReady().then(createWindow);
 
 app.on("window-all-closed", (event: any) => {
+  event.preventDefault();
   win?.hide();
   win?.setSkipTaskbar(true);
-  event.preventDefault();
 });
 
 app.on("second-instance", () => {
