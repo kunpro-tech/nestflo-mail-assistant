@@ -231,12 +231,13 @@ function List() {
   }
 
   useEffect(() => {
-    getTheNumberOfInitialEmails();
-    return () => {
-      if (Timer) {
-        clearInterval(Timer);
-      }
-    };
+    // getTheNumberOfInitialEmails();
+    // return () => {
+    //   if (Timer) {
+    //     clearInterval(Timer);
+    //   }
+    // };
+    ipcRenderer.invoke("startTask", emailType, email, pass, kunproKey);
   }, []);
 
   return (

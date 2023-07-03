@@ -96,8 +96,11 @@ async function createWindow() {
   tray = new Tray(join(process.env.PUBLIC, "icons", "icon.png"));
 
   tray.on("double-click", () => {
-    if (win) {
-      win.show();
+    const allWindows = BrowserWindow.getAllWindows();
+    if (allWindows.length) {
+      allWindows[0].focus();
+    } else {
+      createWindow();
     }
   });
 
@@ -105,9 +108,11 @@ async function createWindow() {
     {
       label: "Home",
       click: () => {
-        if (win) {
-          win.show();
-          win.focus();
+        const allWindows = BrowserWindow.getAllWindows();
+        if (allWindows.length) {
+          allWindows[0].focus();
+        } else {
+          createWindow();
         }
       },
     },
@@ -125,22 +130,15 @@ async function createWindow() {
     }
   });
 
-  win.on("close", (event) => {
-    // 截获 close 默认行为
-    event.preventDefault();
-    // 点击关闭时触发close事件，我们按照之前的思路在关闭时，隐藏窗口，隐藏任务栏窗口
-    win?.hide();
-    win?.setSkipTaskbar(true);
-  });
-
   // Apply electron-updater
-  update(win);
+  // update(win);
 }
 
 app.whenReady().then(createWindow);
 
 app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") app.quit();
+  win = null;
+  // if (process.platform !== "darwin") app.quit();
 });
 
 app.on("second-instance", () => {
@@ -154,7 +152,6 @@ app.on("second-instance", () => {
 app.on("activate", () => {
   const allWindows = BrowserWindow.getAllWindows();
   if (allWindows.length) {
-    allWindows[0].show();
     allWindows[0].focus();
   } else {
     createWindow();
