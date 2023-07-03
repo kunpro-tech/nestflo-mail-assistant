@@ -5,9 +5,9 @@ import { update } from "./update";
 import "./imap";
 import "./sendMail";
 import log from "electron-log";
-require("update-electron-app")({
-  logger: require("electron-log"),
-});
+// require("update-electron-app")({
+//   logger: require("electron-log"),
+// });
 
 log.initialize({ preload: true });
 

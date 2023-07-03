@@ -46,6 +46,8 @@ function List() {
   };
 
   const addMailPromise = (item: TMailItem) => {
+    log.info(JSON.stringify(item), "将要处理的邮件");
+
     return new Promise<void>((resolve, reject) => {
       addMail({
         variables: {
@@ -82,6 +84,8 @@ function List() {
                 content: "sentSuccessfully",
               });
             }
+
+            log.info(JSON.stringify(item), "发送成功");
 
             resolve();
           } catch (error) {
