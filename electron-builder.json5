@@ -3,6 +3,7 @@
  */
 {
   "appId": "YourAppID",
+  "productName": "Kunpro Mail Assitant",
   "asar": true,
   "directories": {
     "output": "release"
