@@ -7,8 +7,8 @@ import { useNavigate } from "react-router-dom";
 import "./index.scss";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import logoImg from '../../assets/logo.png'
-import textImg from '../../assets/text.png'
+import logoImg from "../../assets/logo.png";
+import textImg from "../../assets/text.png";
 
 const GET_TOKENS = gql`
   query Query($token: String!) {
@@ -81,7 +81,21 @@ function login() {
       variables: {
         token: kunproKey,
       },
-      onCompleted(data) {
+      async onCompleted(data) {
+        const res = await ipcRenderer.invoke(
+          "totalNumberOfEmails",
+          emailType,
+          email,
+          password
+        );
+        if (res === "error") {
+          messageApi.open({
+            type: "error",
+            content: "mailboxVerificationFailed",
+          });
+
+          return;
+        }
         localStorage.setItem("emailType", emailType);
         localStorage.setItem("email", email);
         localStorage.setItem("pass", password);
@@ -137,16 +151,8 @@ function login() {
     <>
       {contextHolder}
       <div className={styles.content}>
-        <img
-          src={logoImg}
-          alt="logo"
-          className={styles.logo_img}
-        />
-        <img
-          src={textImg}
-          alt="text"
-          className={styles.text_img}
-        />
+        <img src={logoImg} alt="logo" className={styles.logo_img} />
+        <img src={textImg} alt="text" className={styles.text_img} />
         <Form
           name="basic"
           form={form}
@@ -164,10 +170,8 @@ function login() {
           <Form.Item
             label="Email type"
             name="emailType"
-            rules={[
-              { required: true, message: "" },
-            ]}
-            initialValue={'1'}
+            rules={[{ required: true, message: "" }]}
+            initialValue={"1"}
           >
             <Radio.Group options={options} optionType="button" />
           </Form.Item>
@@ -175,11 +179,12 @@ function login() {
           <Form.Item
             label="Email address"
             name="email"
-            rules={[
-              { required: true, message: "" },
-            ]}
+            rules={[{ required: true, message: "" }]}
           >
-            <Input placeholder="Please enter your email address" bordered={false} />
+            <Input
+              placeholder="Please enter your email address"
+              bordered={false}
+            />
           </Form.Item>
 
           <Form.Item
@@ -187,15 +192,16 @@ function login() {
             name="password"
             rules={[{ required: true, message: "" }]}
           >
-            <Input.Password placeholder="Please enter a password" bordered={false} />
+            <Input.Password
+              placeholder="Please enter a password"
+              bordered={false}
+            />
           </Form.Item>
 
           <Form.Item
             label="Kunpro key"
             name="kunproKey"
-            rules={[
-              { required: true, message: "" },
-            ]}
+            rules={[{ required: true, message: "" }]}
           >
             <Input placeholder="Please enter the key" bordered={false} />
           </Form.Item>
