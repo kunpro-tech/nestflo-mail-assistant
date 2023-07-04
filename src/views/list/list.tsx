@@ -46,8 +46,6 @@ function List() {
   };
 
   const addMailPromise = (item: TMailItem) => {
-    log.info(JSON.stringify(item), "将要处理的邮件");
-
     return new Promise<void>((resolve, reject) => {
       addMail({
         variables: {
@@ -85,16 +83,17 @@ function List() {
               });
             }
 
-            log.info(JSON.stringify(item), "发送成功");
+            log.info("sentSuccessfully");
 
             resolve();
           } catch (error) {
+            console.log(error);
             messageApi.open({
               type: "error",
-              content: JSON.stringify(error),
+              content: 'sendAnError',
             });
 
-            log.error(JSON.stringify(error));
+            log.error('sendAnError');
 
             resolve();
           }
@@ -102,10 +101,12 @@ function List() {
         onError(error, clientOptions) {
           messageApi.open({
             type: "error",
-            content: JSON.stringify(error),
+            content: 'sendAnError',
           });
 
-          log.error(JSON.stringify(error));
+          console.log(error);
+
+          log.error('sendAnError');
 
           resolve();
         },
@@ -161,9 +162,10 @@ function List() {
         }
       }
     } catch (error) {
+      console.log(error);
       messageApi.open({
         type: "error",
-        content: JSON.stringify(error),
+        content: 'fixedDetectionError',
       });
     }
   }
@@ -196,9 +198,10 @@ function List() {
       }
       localStorage.setItem("InitiallyChecked", "yes");
     } catch (error) {
+      console.log(error);
       messageApi.open({
         type: "error",
-        content: JSON.stringify(error),
+        content: 'initialError',
       });
     }
   }
@@ -229,7 +232,7 @@ function List() {
     } catch (error) {
       messageApi.open({
         type: "error",
-        content: JSON.stringify(error),
+        content: 'obtainTheNumberOfEmailsErrors',
       });
     }
   }

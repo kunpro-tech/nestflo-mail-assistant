@@ -115,7 +115,7 @@ async function createWindow() {
     {
       label: "Exit",
       click: () => {
-        app.exit()
+        app.exit();
       },
     },
   ]);
@@ -127,11 +127,13 @@ async function createWindow() {
   });
 
   win.on("close", (event) => {
-    // 截获 close 默认行为
-    event.preventDefault();
-    // 点击关闭时触发close事件，我们按照之前的思路在关闭时，隐藏窗口，隐藏任务栏窗口
-    win?.hide();
-    win?.setSkipTaskbar(true);
+    if (process.platform !== "darwin") {
+      // 截获 close 默认行为
+      event.preventDefault();
+      // 点击关闭时触发close事件，我们按照之前的思路在关闭时，隐藏窗口，隐藏任务栏窗口
+      win?.hide();
+      win?.setSkipTaskbar(true);
+    }
   });
 
   // Apply electron-updater
@@ -141,7 +143,7 @@ async function createWindow() {
 app.whenReady().then(createWindow);
 
 app.on("window-all-closed", () => {
-  win = null
+  win = null;
   if (process.platform !== "darwin") app.quit();
 });
 
