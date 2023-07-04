@@ -91,7 +91,7 @@ function login() {
         if (res === "error") {
           messageApi.open({
             type: "error",
-            content: "mailboxVerificationFailed",
+            content: "Login failed, please refer to the help manual to confirm whether the password is correct",
           });
 
           return;
@@ -100,16 +100,16 @@ function login() {
         localStorage.setItem("email", email);
         localStorage.setItem("pass", password);
         localStorage.setItem("kunproKey", kunproKey);
-        messageApi.open({
-          type: "success",
-          content: "successfulBinding",
-        });
+        // messageApi.open({
+        //   type: "success",
+        //   content: "successfulBinding",
+        // });
         navigate("/list");
       },
       onError(error) {
         messageApi.open({
           type: "error",
-          content: "kunprokeyError",
+          content: "Login failed, please go to https://admin.kunpro.co to set API Keys",
         });
       },
     });

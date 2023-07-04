@@ -79,7 +79,7 @@ function List() {
 
               messageApi.open({
                 type: "success",
-                content: "sentSuccessfully",
+                content: "Lead Generations sent successfully",
               });
             }
 
@@ -90,7 +90,7 @@ function List() {
             console.log(error);
             messageApi.open({
               type: "error",
-              content: 'sendAnError',
+              content: 'Failed to send Lead Generations, will automatically retry later',
             });
 
             log.error('sendAnError');
@@ -101,7 +101,7 @@ function List() {
         onError(error, clientOptions) {
           messageApi.open({
             type: "error",
-            content: 'sendAnError',
+            content: 'Failed to send Lead Generations, will automatically retry later',
           });
 
           console.log(error);
@@ -165,7 +165,7 @@ function List() {
       console.log(error);
       messageApi.open({
         type: "error",
-        content: 'fixedDetectionError',
+        content: 'Check for new Lead Generations failed, will automatically retry later',
       });
     }
   }
@@ -201,7 +201,7 @@ function List() {
       console.log(error);
       messageApi.open({
         type: "error",
-        content: 'initialError',
+        content: 'Check for new Lead Generations failed, will automatically retry later',
       });
     }
   }
