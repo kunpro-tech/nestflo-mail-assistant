@@ -80,19 +80,3 @@ ipcMain.handle(
     }
   }
 );
-
-export const sendMail = async (
-  type: string,
-  user: string,
-  pass: string,
-  to: string,
-  subject: string,
-  html: string
-) => {
-  try {
-    const res = await main(type, user, pass, to, subject, html);
-    return res;
-  } catch (error) {
-    return JSON.stringify(error);
-  }
-};
