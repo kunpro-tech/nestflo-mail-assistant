@@ -135,7 +135,7 @@ ipcMain.handle(
       const res = await getEmailCount(type, user, pass);
       return res;
     } catch (error) {
-      return JSON.stringify(error);
+      return 'error';
     }
   }
 );

@@ -5,9 +5,9 @@ import { update } from "./update";
 import "./imap";
 import "./sendMail";
 import log from "electron-log";
-require("update-electron-app")({
-  logger: require("electron-log"),
-});
+// require("update-electron-app")({
+//   logger: require("electron-log"),
+// });
 
 log.initialize({ preload: true });
 
@@ -98,6 +98,7 @@ async function createWindow() {
   tray.on("double-click", () => {
     if (win) {
       win.show();
+      win?.setSkipTaskbar(false);
     }
   });
 
@@ -107,14 +108,14 @@ async function createWindow() {
       click: () => {
         if (win) {
           win.show();
-          win.focus();
+          win?.setSkipTaskbar(false);
         }
       },
     },
     {
       label: "Exit",
       click: () => {
-        app.quit();
+        app.exit();
       },
     },
   ]);
@@ -126,11 +127,13 @@ async function createWindow() {
   });
 
   win.on("close", (event) => {
-    // 截获 close 默认行为
-    event.preventDefault();
-    // 点击关闭时触发close事件，我们按照之前的思路在关闭时，隐藏窗口，隐藏任务栏窗口
-    win?.hide();
-    win?.setSkipTaskbar(true);
+    if (process.platform !== "darwin") {
+      // 截获 close 默认行为
+      event.preventDefault();
+      // 点击关闭时触发close事件，我们按照之前的思路在关闭时，隐藏窗口，隐藏任务栏窗口
+      win?.hide();
+      win?.setSkipTaskbar(true);
+    }
   });
 
   // Apply electron-updater
@@ -140,6 +143,7 @@ async function createWindow() {
 app.whenReady().then(createWindow);
 
 app.on("window-all-closed", () => {
+  win = null;
   if (process.platform !== "darwin") app.quit();
 });
 

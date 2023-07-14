@@ -3,6 +3,7 @@
  */
 {
   "appId": "YourAppID",
+  "productName": "Kunpro Mail Assitant",
   "asar": true,
   "directories": {
     "output": "release"
@@ -34,7 +35,7 @@
     "oneClick": false,
     "perMachine": false,
     "allowToChangeInstallationDirectory": true,
-    "deleteAppDataOnUninstall": false
+    "deleteAppDataOnUninstall": true
   },
   "publish": {
     "provider": "generic",

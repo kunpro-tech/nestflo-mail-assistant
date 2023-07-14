@@ -79,18 +79,21 @@ function List() {
 
               messageApi.open({
                 type: "success",
-                content: "sentSuccessfully",
+                content: "Lead Generations sent successfully",
               });
             }
 
+            log.info("sentSuccessfully");
+
             resolve();
           } catch (error) {
+            console.log(error);
             messageApi.open({
               type: "error",
-              content: JSON.stringify(error),
+              content: 'Failed to send Lead Generations, will automatically retry later',
             });
 
-            log.error(JSON.stringify(error));
+            log.error('sendAnError');
 
             resolve();
           }
@@ -98,10 +101,12 @@ function List() {
         onError(error, clientOptions) {
           messageApi.open({
             type: "error",
-            content: JSON.stringify(error),
+            content: 'Failed to send Lead Generations, will automatically retry later',
           });
 
-          log.error(JSON.stringify(error));
+          console.log(error);
+
+          log.error('sendAnError');
 
           resolve();
         },
@@ -157,9 +162,10 @@ function List() {
         }
       }
     } catch (error) {
+      console.log(error);
       messageApi.open({
         type: "error",
-        content: JSON.stringify(error),
+        content: 'Check for new Lead Generations failed, will automatically retry later',
       });
     }
   }
@@ -192,9 +198,10 @@ function List() {
       }
       localStorage.setItem("InitiallyChecked", "yes");
     } catch (error) {
+      console.log(error);
       messageApi.open({
         type: "error",
-        content: JSON.stringify(error),
+        content: 'Check for new Lead Generations failed, will automatically retry later',
       });
     }
   }
@@ -225,7 +232,7 @@ function List() {
     } catch (error) {
       messageApi.open({
         type: "error",
-        content: JSON.stringify(error),
+        content: 'obtainTheNumberOfEmailsErrors',
       });
     }
   }
