@@ -1,3 +1,5 @@
+## Introduce
+
 Title: Enabling SMTP Access for kunpro-mail-assistant in Gmail
 
 1.Open your web browser and go to the Google Account management page (https://myaccount.google.com). Sign in to your Gmail account.
@@ -21,3 +23,34 @@ Please note that these instructions may vary slightly depending on the specific 
 Remember to keep your application-specific password secure and avoid sharing it with others. If you suspect any security issues or need to revoke access, you can always generate a new application-specific password or disable it entirely through the "App Passwords" section in your Google Account settings.
 
 I hope this formatted document helps you. If you have any further questions, feel free to ask!
+
+## Quick Start
+
+## First of all, you need to make sure that your computer has node and yarn installed
+
+```bash
+git clone https://github.com/kunpro-tech/kunpro-mail-assistant.git
+```
+
+```bash
+cd kunpro-mail-assistant
+```
+
+```bash
+yarn
+```
+
+### Windows computers can only package Windows installation packages, and the same is true for Macs
+### If you want to package the installation package for the Windows platform
+
+```bash
+yarn make-window
+```
+
+### If you want to package the installation package for Mac platforms
+
+```bash
+yarn make-mac
+```
+
+### Then you will be able to find the installation package in the release directory
